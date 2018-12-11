@@ -5,27 +5,25 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.json.JSONArray
+import org.json.JSONObject
 
-class RatingsFragment : Fragment() {
+class MovieCardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val movies = JSONArray(arguments!!.getString("movies"))
-        println("================================")
-        println(movies.length())
-        println("================================")
+        val movie = JSONObject(arguments!!.getString("movie"))
+        println(movie)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_ratings, container, false)
+        inflater.inflate(R.layout.fragment_movie_card, container, false)
 
     companion object {
-        fun newInstance(movies: String): RatingsFragment {
+        fun newInstance(movie: String): MovieCardFragment {
             val args = Bundle()
-            args.putString("movies", movies)
-            val fragment = RatingsFragment()
+            args.putString("movie", movie)
+            val fragment = MovieCardFragment()
             fragment.arguments = args
 
             return fragment

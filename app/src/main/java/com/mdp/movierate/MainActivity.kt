@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     class GetDataTask : AsyncTask<Void, Void, JSONArray>() {
 
         override fun doInBackground(vararg params: Void?): JSONArray? {
-            val response : Response = khttpGet("https://pure-river-78957.herokuapp.com/movies")
+            val response: Response = khttpGet("https://pure-river-78957.herokuapp.com/movies")
 
             return response.jsonArray
         }
@@ -43,10 +43,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        movies = GetDataTask().execute().get()
+        val loadingFragment = LoadingFragment.newInstance()
+        openFragment(loadingFragment)
 
-        val homeFragment = HomeFragment.newInstance(movies.toString())
-        openFragment(homeFragment)
+        try {
+            movies = GetDataTask().execute().get()
+            val homeFragment = HomeFragment.newInstance(movies.toString())
+            openFragment(homeFragment)
+        } catch (e: Exception) {
+            // TODO: error handling
+        }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }

@@ -7,10 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 
 class RatingsFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val movies = arguments!!.getString("movies")
+        println(movies)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_ratings, container, false)
 
     companion object {
-        fun newInstance(): RatingsFragment = RatingsFragment()
+        fun newInstance(movies: String): RatingsFragment {
+            val args = Bundle()
+            args.putString("movies", movies)
+            val fragment = RatingsFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 }

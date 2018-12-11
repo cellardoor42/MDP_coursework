@@ -8,10 +8,24 @@ import android.view.ViewGroup
 
 class HomeFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val movies = arguments!!.getString("movies")
+        println(movies)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_home, container, false)
 
     companion object {
-        fun newInstance(): HomeFragment = HomeFragment()
+        fun newInstance(movies: String): HomeFragment {
+            val args = Bundle()
+            args.putString("movies", movies)
+            val fragment = HomeFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 }

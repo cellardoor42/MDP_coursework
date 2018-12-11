@@ -1,24 +1,37 @@
 package com.mdp.movierate
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.design.widget.BottomNavigationView.*
 import android.support.v7.app.AppCompatActivity
+import khttp.responses.Response
 import kotlinx.android.synthetic.main.activity_main.*
-import com.mongodb.client.MongoClients
-
+import org.json.JSONArray
+import khttp.get as khttpGet
 
 class MainActivity : AppCompatActivity() {
+
+    class GetDataTask : AsyncTask<Void, Void, JSONArray>() {
+
+        override fun doInBackground(vararg params: Void?): JSONArray? {
+            val response : Response = khttpGet("https://pure-river-78957.herokuapp.com/movies")
+
+            return response.jsonArray
+        }
+    }
+
+    private var movies : JSONArray = JSONArray()
 
     private val mOnNavigationItemSelectedListener = OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                val homeFragment = HomeFragment.newInstance()
+                val homeFragment = HomeFragment.newInstance(movies.toString())
                 openFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_ratings -> {
-                val ratingsFragment = RatingsFragment.newInstance()
+                val ratingsFragment = RatingsFragment.newInstance(movies.toString())
                 openFragment(ratingsFragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -30,14 +43,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val homeFragment = HomeFragment.newInstance()
+        movies = GetDataTask().execute().get()
+
+        val homeFragment = HomeFragment.newInstance(movies.toString())
         openFragment(homeFragment)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        val client = MongoClients.create("mongodb://dbuser:inttechdb@ds111103.mlab.com:11103/int_tech")
-        val db = client.getDatabase("int_tech")
-        val movies = db.getCollection("movies")
     }
 
     private fun openFragment(fragment: Fragment) {

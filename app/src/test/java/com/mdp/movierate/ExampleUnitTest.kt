@@ -1,4 +1,4 @@
-package com.example.movierate
+package com.mdp.movierate
 
 import org.junit.Test
 

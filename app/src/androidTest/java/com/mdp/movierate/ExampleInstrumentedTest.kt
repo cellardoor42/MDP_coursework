@@ -1,4 +1,4 @@
-package com.example.movierate
+package com.mdp.movierate
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

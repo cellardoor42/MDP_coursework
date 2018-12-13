@@ -1,13 +1,16 @@
 package com.mdp.movierate
 
+import android.app.Activity
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.design.widget.BottomNavigationView.*
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import khttp.responses.Response
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
+import java.lang.ref.WeakReference
 import khttp.get as khttpGet
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +22,10 @@ class MainActivity : AppCompatActivity() {
 
             return response.jsonArray
         }
+
+//        override fun onPostExecute(result: JSONArray?) {
+//            super.onPostExecute(result)
+//        }
     }
 
     private var movies : JSONArray = JSONArray()

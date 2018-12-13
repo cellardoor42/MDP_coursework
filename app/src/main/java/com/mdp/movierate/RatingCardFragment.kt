@@ -45,7 +45,7 @@ class RatingCardFragment : Fragment() {
     }
 
     private fun formCard() {
-        rating_title.text = movieData.get("title").toString()
+        rating_title.text = movieData.getString("title")
 
         val kpRating = ratingData.getJSONObject("rating").getJSONObject("kp_rating").getString("content")
         val imdbRating = ratingData.getJSONObject("rating").getJSONObject("imdb_rating").getString("content")

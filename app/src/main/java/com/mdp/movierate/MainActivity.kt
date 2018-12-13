@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             innerMovies = response.jsonArray
 
             for (i in 0 until innerMovies.length()) {
-                val kinopoiskId = innerMovies.getJSONObject(i).get("kinopoisk_id").toString()
+                val kinopoiskId = innerMovies.getJSONObject(i).getString("kinopoisk_id")
                 val ratingsById = khttpGet("https://rating.kinopoisk.ru/${kinopoiskId}.xml")
                 innerRatings.put(XML.toJSONObject(ratingsById.text))
             }

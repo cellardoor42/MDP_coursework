@@ -58,13 +58,13 @@ class MovieCardFragment : Fragment() {
 
         genreString = genreString.removeSuffix(", ")
 
-        Picasso.get().load(movieData.get("posterUrl").toString()).into(cover)
+        Picasso.get().load(movieData.getString("posterUrl")).into(cover)
 
-        title.text = movieData.get("title").toString()
-        director.text = movieData.get("director").toString()
+        title.text = movieData.getString("title")
+        director.text = movieData.getString("director")
         genre.text = genreString
-        year.text = movieData.get("year").toString()
-        plot.text = movieData.get("plot").toString()
+        year.text = movieData.getString("year")
+        plot.text = movieData.getString("plot")
         plot.visibility = View.GONE
     }
 
